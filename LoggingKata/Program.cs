@@ -30,23 +30,51 @@ namespace LoggingKata
             // Use the Select LINQ method to parse every line in lines collection
             var locations = lines.Select(parser.Parse).ToArray();
 
-  
+
             // Complete the Parse method in TacoParser class first and then START BELOW ----------
 
             // TODO: Create two `ITrackable` variables with initial values of `null`. 
             // These will be used to store your two Taco Bells that are the farthest from each other.
-            
+            ITrackable tacoBell1 = null;
+            ITrackable tacoBell2 = null;
+
             // TODO: Create a `double` variable to store the distance
+            double distance = 0;//storeing the distance
 
             // TODO: Add the Geolocation library to enable location comparisons: using GeoCoordinatePortable;
             // Look up what methods you have access to within this library.
 
             // NESTED LOOPS SECTION----------------------------
-            
+
             // FIRST FOR LOOP -
             // TODO: Create a loop to go through each item in your collection of locations.
             // This loop will let you select one location at a time to act as the "starting point" or "origin" location.
             // Naming suggestion for variable: `locA`
+
+            for (int i = 0; i < locations.Length; i++)
+            {
+                var locA = locations[i];
+                var corA = new GeoCoordinate();
+                corA.Latitude = locA.Location.Latitude;// corA new object being given value 
+                corA.Longitude = locA.Location.Longitude;//new instance of Geocoordinate with values
+
+                for (int s = 0; s < locations.Length; s++)
+                {
+                    var locB = locations[s];
+                    var corB = new GeoCoordinate(locB.Location.Latitude, locB.Location.Longitude);// have to put the location and latitude inside parameter this time to instanciate and give values
+
+                    if (corA.GetDistanceTo(corB) > distance)// use if statement to get the distance with the .GetDistanceTo() method
+                    {
+                        distance = corA.GetDistanceTo(corB);
+                        tacoBell1 = locA;// updateing distance 
+                        tacoBell2 = locB;
+                    }
+
+                }
+
+            }
+
+
 
             // TODO: Once you have locA, create a new Coordinate object called `corA` with your locA's latitude and longitude.
 
@@ -65,8 +93,9 @@ namespace LoggingKata
             // Once you've looped through everything, you've found the two Taco Bells farthest away from each other.
             // Display these two Taco Bell locations to the console.
 
+            logger.LogInfo($"This Taco Bell :{tacoBell1.Name} is {distance} meters away from {tacoBell2.Name}");
+            // used logger.LogInfo as if its Console.WriteLine() to display the locations to the console
 
-            
         }
     }
 }
