@@ -12,49 +12,37 @@ namespace LoggingKata
 
         static void Main(string[] args)
         {
-            // Objective: Find the two Taco Bells that are the farthest apart from one another.
-            // Some of the TODO's are done for you to get you started. 
+             
 
             logger.LogInfo("Log initialized");
 
-            // Use File.ReadAllLines(path) to grab all the lines from your csv file. 
-            // Optional: Log an error if you get 0 lines and a warning if you get 1 line
+            
             var lines = File.ReadAllLines(csvPath);
 
-            // This will display the first item in your lines array
-            logger.LogInfo($"Lines: {lines[0]}");
+            
+            logger.LogInfo($"Lines: {lines[0]}");// Displaying the first item in lines array functions like Console.WriteLine()
 
-            // Create a new instance of your TacoParser class
-            var parser = new TacoParser();
+            
+            var parser = new TacoParser();// New instance of TacoParser class
 
-            // Use the Select LINQ method to parse every line in lines collection
-            var locations = lines.Select(parser.Parse).ToArray();
+            
+            var locations = lines.Select(parser.Parse).ToArray();// Use the Select LINQ method to parse every line in lines collection
 
 
-            // Complete the Parse method in TacoParser class first and then START BELOW ----------
 
-            // TODO: Create two `ITrackable` variables with initial values of `null`. 
-            // These will be used to store your two Taco Bells that are the farthest from each other.
-            ITrackable tacoBell1 = null;
+
+            ITrackable tacoBell1 = null;//New ITrackable varibales with initial value of null
             ITrackable tacoBell2 = null;
 
-            // TODO: Create a `double` variable to store the distance
-            double distance = 0;//storeing the distance
+            
+            double distance = 0;//storing the distance in a double variable
 
-            // TODO: Add the Geolocation library to enable location comparisons: using GeoCoordinatePortable;
-            // Look up what methods you have access to within this library.
+            
 
-            // NESTED LOOPS SECTION----------------------------
-
-            // FIRST FOR LOOP -
-            // TODO: Create a loop to go through each item in your collection of locations.
-            // This loop will let you select one location at a time to act as the "starting point" or "origin" location.
-            // Naming suggestion for variable: `locA`
-
-            for (int i = 0; i < locations.Length; i++)
+            for (int i = 0; i < locations.Length; i++) //created for loop to go through colleciton
             {
-                var locA = locations[i];
-                var corA = new GeoCoordinate();
+                var locA = locations[i];//created new variable to act as starting point of locations[i] 
+                var corA = new GeoCoordinate();//created new instance of the GeoCoordinate
                 corA.Latitude = locA.Location.Latitude;// corA new object being given value 
                 corA.Longitude = locA.Location.Longitude;//new instance of Geocoordinate with values
 
